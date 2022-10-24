@@ -1,5 +1,9 @@
 # TDLOG-Smart-Vegetables
 Projet TDLOG 
+aBI
+
+Noémie
+djh
 
 #test
 Application de reconnaissance de légumes
