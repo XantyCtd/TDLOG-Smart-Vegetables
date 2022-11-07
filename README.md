@@ -18,4 +18,5 @@ Plusieurs possibilités : soit on fait du machine learning, soit on choisit les 
 # Outils utilisés
 
 ML : Tensorflow
+
 Interface : Flask
