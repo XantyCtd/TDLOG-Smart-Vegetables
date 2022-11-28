@@ -61,7 +61,7 @@ def predict(filename, model):
     print("here", dict_result)
     for i in range(3):
         prob_result.append((prob[i] * 100).round(2))
-        class_result.append(dict_result[prob[i]])
+        class_result.append(dict_result[prob[i]])  # KeyError: 17.39121
 
     return class_result, prob_result
 
