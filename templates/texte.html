@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <link rel = "stylesheet" type= "text/css" href= "{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+ <body>
+
+<h1 > {{ message }} </h1>
+ <h2>Cette application permet de reconnaitre le légume associé à l'image importée.</h2>
+
+   <center> <img src = "{{ url_for('static', filename='flask-logo.png')}}">
+       </center>
+
+</body>
+    <a href= {{ url_for('suite') }} »> Cliquer pour continuer </a>
+
+</html>

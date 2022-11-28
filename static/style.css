@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+body {
+ background-color: rgb(176,242,182);
+ font-family: Verdana, sans-serif;
+ font-size: 100%;
+ }
+
+h1 {
+    width: 70%;
+    margin: auto;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color : navy;
+}
+
+h2{
+    font-size: 150%;
+    color: blue;
+    padding-left: 15px;
+}
