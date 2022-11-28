@@ -1,6 +1,7 @@
 import os
 import uuid
 import urllib
+from PIL import Image
 from tensorflow.keras.models import load_model
 from flask import Flask, render_template, request
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
@@ -37,9 +38,9 @@ classes = [
 
 
 def predict(filename, model):
-    img = load_img(filename, target_size=(32, 32))
+    img = load_img(filename, target_size=(180, 180))
     img = img_to_array(img)
-    img = img.reshape(1, 32, 32, 3)
+    img = img.reshape(1, 180, 180, 3)
 
     img = img.astype("float32")
     img = img / 255.0
@@ -56,6 +57,8 @@ def predict(filename, model):
 
     prob_result = []
     class_result = []
+
+    print("here", dict_result)
     for i in range(3):
         prob_result.append((prob[i] * 100).round(2))
         class_result.append(dict_result[prob[i]])
