@@ -11,7 +11,7 @@ from tensorflow.keras.models import Sequential
 
 import pathlib
 
-data_dir = pathlib.Path("C:/Users/alexa/Desktop/archive/Vegetable_Images/train")
+data_dir = pathlib.Path("C:/Users/alexa/Documents/TDLOG/VegetableImages/train")
 
 image_count = len(list(data_dir.glob("*/*.jpg")))
 print(image_count)
