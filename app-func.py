@@ -52,7 +52,7 @@ def upload():
 
         os.remove("image.jpg")
 
-        return "This image most likely belongs to {} with a {:.2f} percent confidence.".format(
+        return "Cette image est {} avec une confiance de {:.2f} pour cent.".format(
             class_names[np.argmax(score)], 100 * np.max(score)
         )
 
