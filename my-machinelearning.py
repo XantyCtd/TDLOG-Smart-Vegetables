@@ -18,16 +18,13 @@ data_dir = pathlib.Path(data_dir)
 image_count = len(list(data_dir.glob("*/*.jpg")))
 print(image_count)
 
-roses = list(data_dir.glob("roses/*"))
-PIL.Image.open(str(roses[0]))
+# Create a dataset : taille du lot des images, hauteur et largeur de chaque image
 
-# Load data using a Keras utility
-
-## Create a dataset
-
-batch_size = 32  # Nombre d'image à la fois
+batch_size = 32
 img_height = 180
 img_width = 180
+
+# fractionnement du data set : 80% pour formation du modèle + 20% pour validation
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
     data_dir,
@@ -47,6 +44,8 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     batch_size=batch_size,
 )
 
+# noms des répertoires par ordre alphabétique.
+
 class_names = train_ds.class_names
 print(class_names)
 
@@ -60,12 +59,17 @@ for images, labels in train_ds.take(1):
         plt.title(class_names[labels[i]])
         plt.axis("off")
 
+# visualisation des données en traçant 9 images aléatoires de
+# l'ensemble de données d'entraînement, un pour chaque classe
+
 for image_batch, labels_batch in train_ds:
     print(image_batch.shape)
     print(labels_batch.shape)
     break
 
 # Configure the dataset
+# les données sont mis en cache, mélangées et préchargées
+# valeurs de pixels normalisées de 0-255 à 0-1
 
 AUTOTUNE = tf.data.AUTOTUNE
 
@@ -74,7 +78,7 @@ val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
 
 # Standardize the data
 
-normalization_layer = layers.Rescaling(1.0 / 255)
+normalization_layer = tf.keras.layers.Rescaling(1.0 / 255)
 
 normalized_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
 image_batch, labels_batch = next(iter(normalized_ds))
@@ -86,91 +90,36 @@ print(np.min(first_image), np.max(first_image))
 
 num_classes = len(class_names)
 
-## Create the model
-
-model = Sequential(
-    [
-        layers.Rescaling(1.0 / 255, input_shape=(img_height, img_width, 3)),
-        layers.Conv2D(16, 3, padding="same", activation="relu"),
-        layers.MaxPooling2D(),
-        layers.Conv2D(32, 3, padding="same", activation="relu"),
-        layers.MaxPooling2D(),
-        layers.Conv2D(64, 3, padding="same", activation="relu"),
-        layers.MaxPooling2D(),
-        layers.Flatten(),
-        layers.Dense(128, activation="relu"),
-        layers.Dense(num_classes),
-    ]
-)
-
-## Compile the model
-
-model.compile(
-    optimizer="adam",
-    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-    metrics=["accuracy"],
-)
-
-## Model summary
-
-model.summary()
-
-## Train the model
-
-epochs = 10  # Nombre de fois que le programme voit le jeu de données
-history = model.fit(train_ds, validation_data=val_ds, epochs=epochs)
-
-# Visualize training results
-
-acc = history.history["accuracy"]
-val_acc = history.history["val_accuracy"]
-
-loss = history.history["loss"]
-val_loss = history.history["val_loss"]
-
-epochs_range = range(epochs)
-
-plt.figure(figsize=(8, 8))
-plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label="Training Accuracy")
-plt.plot(epochs_range, val_acc, label="Validation Accuracy")
-plt.legend(loc="lower right")
-plt.title("Training and Validation Accuracy")
-
-plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label="Training Loss")
-plt.plot(epochs_range, val_loss, label="Validation Loss")
-plt.legend(loc="upper right")
-plt.title("Training and Validation Loss")
-plt.show()
-
 # Data augmentation
 
-data_augmentation = keras.Sequential(
+data_augmentation = tf.keras.Sequential(
     [
-        layers.RandomFlip("horizontal", input_shape=(img_height, img_width, 3)),
-        layers.RandomRotation(0.1),
-        layers.RandomZoom(0.1),
+        tf.keras.layers.RandomFlip(
+            "horizontal", input_shape=(img_height, img_width, 3)
+        ),
+        tf.keras.layers.RandomRotation(0.1),
+        tf.keras.layers.RandomZoom(0.1),
     ]
 )
 
-model = Sequential(
+# modèle de base de réseau neuronal convolutif
+# qui évite l'overfittting
+model = tf.keras.models.Sequential(
     [
         data_augmentation,
-        layers.Rescaling(1.0 / 255),
-        layers.Conv2D(16, 3, padding="same", activation="relu"),
-        layers.MaxPooling2D(),
-        layers.Conv2D(32, 3, padding="same", activation="relu"),
-        layers.MaxPooling2D(),
-        layers.Conv2D(64, 3, padding="same", activation="relu"),
-        layers.MaxPooling2D(),
-        layers.Dropout(0.2),
-        layers.Flatten(),
-        layers.Dense(128, activation="relu"),
-        layers.Dense(num_classes, name="outputs"),
+        tf.keras.layers.Rescaling(1.0 / 255),
+        tf.keras.layers.Conv2D(16, 3, padding="same", activation="relu"),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Conv2D(32, 3, padding="same", activation="relu"),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Conv2D(64, 3, padding="same", activation="relu"),
+        tf.keras.layers.MaxPooling2D(),
+        tf.keras.layers.Dropout(0.2),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(128, activation="relu"),
+        tf.keras.layers.Dense(num_classes, name="outputs"),
     ]
 )
-
 # Compile and train the model
 
 model.compile(
@@ -208,20 +157,4 @@ plt.legend(loc="upper right")
 plt.title("Training and Validation Loss")
 plt.show()
 
-# Predict on new data
-
-sunflower_url = "https://storage.googleapis.com/download.tensorflow.org/example_images/592px-Red_sunflower.jpg"
-sunflower_path = tf.keras.utils.get_file("Red_sunflower", origin=sunflower_url)
-
-img = tf.keras.utils.load_img(sunflower_path, target_size=(img_height, img_width))
-img_array = tf.keras.utils.img_to_array(img)
-img_array = tf.expand_dims(img_array, 0)  # Create a batch
-
-predictions = model.predict(img_array)
-score = tf.nn.softmax(predictions[0])
-
-print(
-    "This image most likely belongs to {} with a {:.2f} percent confidence.".format(
-        class_names[np.argmax(score)], 100 * np.max(score)
-    )
-)
+model.save("model.hdf5")
