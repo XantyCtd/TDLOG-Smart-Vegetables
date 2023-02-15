@@ -99,7 +99,8 @@ def SignIn():
 
 @app.route("/logout")
 def logout():
-    """Définition de la page déconnexion, qui permet à l'utilisateur de se déconnecter"""
+    """Définition de la page déconnexion,
+    qui permet à l'utilisateur de se déconnecter"""
     logout_user()
     return redirect(url_for("SignIn"))
 
@@ -107,7 +108,8 @@ def logout():
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
-    """Définition de la page profil qui donne accès au profil une fois que l'utilisateur est connecté"""
+    """Définition de la page profil qui donne accès au profil
+    une fois que l'utilisateur est connecté"""
     return render_template("profile.html")
 
 
@@ -115,7 +117,8 @@ def profile():
 @login_required
 # def suite():
 def index1():
-    """Définition de la page image à télécharger, on peut y accéder une fois que l'utilisateur est connecté"""
+    """Définition de la page image à télécharger, on peut y accéder
+    une fois que l'utilisateur est connecté"""
     return render_template(
         "page_suivante.html", message2="Choisissez une image à télécharger"
     )
