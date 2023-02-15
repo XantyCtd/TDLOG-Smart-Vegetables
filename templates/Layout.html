@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartVegetables</title>
+    <meta charset="utf-8">
+     <link rel = "stylesheet"  href= {{ url_for('static', filename='css/style.css')}}>
+
+</head>
+
+<body>
+
+ <div class="navbar">
+        <a href="/" class="navbar-brand">Smart Vegetables</a>
+        <a href="{{ url_for('accueil') }}" class="navbar-item">Accueil</a>
+        <a href="{{ url_for('index1') }}" class="navbar-item">Image à télécharger</a>
+        <a href="{{ url_for('About') }}" class="navbar-item">A propos</a>
+        <a href="{{ url_for('SignIn') }}" class="navbar-item">Connexion</a>
+        <a href="{{ url_for('profile') }}" class="navbar-item">Profil</a>
+        <a href="{{ url_for('signup') }}" class="navbar-item">Inscription</a>
+        <a href="{{ url_for('logout') }}" class="navbar-item">Déconnexion</a>
+    </div>
+
+ <div class="body-content">
+        {% block content %}
+
+        {% endblock %}
+
+      </div>
+</body>
+</html

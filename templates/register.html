@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "Layout.html" %}
+{% block content %}
+<body style="background-image: url(/static/images/fond1.jpg)">
+<h1 class="title">Inscription</h1>
+
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="./style.css">
+<!-- partial:index.partial.html -->
+<form method="post">
+    <div class="form-field">
+  <input type="text" id="username" name="username" placeholder="Username" required/><br> </div>
+        <div class="form-field">
+  <input type="email" id="email" name="email" placeholder="Email" required/><br> </div>
+            <div class="form-field">
+  <input type="password" id="password" name="password" placeholder="Password" required/><br><br> </div>
+                <div class="form-field">
+  <input type="first_name" id="first_name" name="first_name" placeholder="First name" required/><br><br> </div>
+                    <div class="form-field">
+  <input type="last_name" id="last_name" name="last_name" placeholder="Last name" required/><br><br> </div>
+<input type="submit" value="Submit">
+</form>
+
+
+<div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{{ url_for('SignIn') }}">Sign In</a>
+        </small>
+    </div>
+{% endblock %}
+</html>

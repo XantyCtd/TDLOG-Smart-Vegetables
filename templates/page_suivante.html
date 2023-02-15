@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+{% extends "Layout.html" %}
+{% block content %}
+
+<body style="background-image: url(/static/images/fond1.jpg)">
+
+    <h1> {{ message2 }} </h1>
+
+    <h2>{{current_user.username}} Choisissez l'image que vous voulez étudier</h2>
+
+
+    <form method="post" enctype="multipart/form-data" action="/upload">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Upload">
+    </form>
+    {% endblock %}
+</body>
+
+</html>

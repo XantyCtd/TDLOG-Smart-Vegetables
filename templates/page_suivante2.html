@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+
+{% extends "Layout.html" %}
+{% block content %}
+<body style="background-image: url(/static/images/fond1.jpg)">
+<h1 > {{ message3 }} </h1>
+
+<h1> Le résultat est-il juste ? </h1>
+<div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Oui
+                </label>
+    <label class="checkbox">
+                    <input type="checkbox">
+                    Non
+                </label>
+            </div>
+
+<form method="post">
+    <input type="submit" value="Submit">
+</form>
+
+   <center> <img src = "static/images/logo.png">
+       </center>
+{% endblock %}
+</html>

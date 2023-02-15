@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% extends "Layout.html" %}
+{% block content %}
+
+<body style="background-image: url(/static/images/fond1.jpg)">
+  <h1>Connectez-vous</h1>
+
+  <body style="background-image: url(/static/images/fond1.jpg)">
+
+    <form method="post">
+
+      <label for="email">Email :</label><br>
+      <input type="text" id="email" name="email"><br>
+      <label for="password">Mot de passe :</label><br>
+      <input type="password" id="password" name="password"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+
+
+    <p> {{ message }} </p>
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox">
+        Remember me
+      </label>
+    </div>
+    {% endblock %}
+
+</html>

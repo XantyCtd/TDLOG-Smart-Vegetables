@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+{% extends "Layout.html" %}
+{% block content %}
+<body style="background-image: url(/static/images/fond1.jpg)" >
+<h1 > {{ message }} </h1>
+<h2>Cette application permet de reconnaitre le légume associé à l'image importée.</h2>
+<h3>Pour pouvoir reconnaitre un légume, vous devez créer un compte qui permettra de stocker l'historique de vos légumes scannés. <br>
+    Une fois votre compte crée, scannez le légume que vous souhaitez découvrir !</h3>
+<h3>Si vous n'avez pas de compte, il vous sera impossible de scanner le légume.</h3>
+<h3>L'application ne peut scanner que les légumes suivants : un haricot, un melon amer, une calebasse, une aubergine, un brocoli, un chou, un poivron, une carotte, un chou-fleur, un concombre, une papaye, une pomme de terre, une citrouille, un radis blanc, une tomate. </h3>
+{% endblock %}
+
+</html>
