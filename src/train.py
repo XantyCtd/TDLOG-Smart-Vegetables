@@ -14,7 +14,7 @@ model.summary()
 
 # Training
 
-epochs = 15
+epochs = 16
 history = model.fit(train_ds, validation_data=val_ds, epochs=epochs)
 print(type(history))
 model.save("data/2_model/model.hdf5")

@@ -107,5 +107,3 @@ model = tf.keras.models.Sequential(
 )
 
 model.save("data/1_prepared/model_prep.hdf5")
-train_ds.save("data/1_prepared/train")
-val_ds.save("data/1_prepared/val")
