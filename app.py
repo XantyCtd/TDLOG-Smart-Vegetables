@@ -27,7 +27,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 IMG_FOLDER = os.path.join("templates", "IMG")
 app.config["UPLOAD_FOLDER"] = IMG_FOLDER
-model = tf.keras.models.load_model("data/2_prediction/model.hdf5")
+model = tf.keras.models.load_model("data/2_model/model.hdf5")
 img_height = 180
 img_width = 180
 
