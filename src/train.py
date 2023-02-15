@@ -16,7 +16,7 @@ model.summary()
 
 epochs = 16
 history = model.fit(train_ds, validation_data=val_ds, epochs=epochs)
-print(type(history))
+
 model.save("data/2_model/model.hdf5")
 
 # Get the dictionary containing each metric and the loss for each epoch

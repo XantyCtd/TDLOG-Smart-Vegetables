@@ -6,7 +6,6 @@ from flask_login import (
     login_user,
     LoginManager,
     login_required,
-    current_user,
     logout_user,
 )
 from werkzeug.utils import redirect
@@ -33,6 +32,8 @@ img_height = 180
 img_width = 180
 
 # Définitions des pages de l'application
+
+
 @app.route("/")
 def accueil():
     """création de la page d'accueil de l'application"""
@@ -52,15 +53,14 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 # si l'utilisateur tente d'accéder à une page alors qu'il n'est pas connecté
-
-
 def unauthorized():
     return "You must be logged in to access this page."
 
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    """Définition de la page inscription, qui permet à l'utilisateur de s'inscrire sur le site"""
+    """Définition de la page inscription, qui permet à l'utilisateur
+    de s'inscrire sur le site"""
     if request.method == "POST":
         # Create a new user with the provided email and password
         username = request.form["username"]
@@ -80,7 +80,8 @@ def signup():
 
 @app.route("/SignIn", methods=["GET", "POST"])
 def SignIn():
-    """Définition de la page connexion, qui permet à l'utilisateur de se connecter"""
+    """Définition de la page connexion,
+    qui permet à l'utilisateur de se connecter"""
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -127,7 +128,8 @@ def index1():
 @app.route("/upload", methods=["POST"])
 @login_required
 def upload():
-    """Définition de la page image à télécharger, on peut y accéder une fois que l'utilisateur est connecté"""
+    """Définition de la page image à télécharger, on peut y accéder
+    une fois que l'utilisateur est connecté"""
     file = request.files["image"]
     if file:
         # save the image to disk

@@ -27,13 +27,17 @@ Interface web : Flask
 # Description des fichiers
 Il existe dans cette application différents répertoires : 
 
--le repertoire static contenant un fichier css avec le style de l'application et un fichier images avec les différentes images utilisées pour créer l'application.
+-Le repertoire static contenant un fichier css avec le style de l'application et un fichier images avec les différentes images utilisées pour créer l'application.
 
--le repertoire templates contenant tout les fichiers html des différentes pages de l'application.
+-Le repertoire templates contenant tout les fichiers html des différentes pages de l'application.
+
+-Le répertoire data contenant les images et les données collectées au fur et à mesure de l'entrainement du modèle
+
+-Le répertoire src contenant les fichiers python à lancer pour préparer, entraîner et évaluer le modèle de deep larning
 
 -Un fichier app.py responsable de la définition des pages de l'application et du lancement de cette dernière.
 
 -Un fichier config.py qui contient les noms des différents légumes reconnaissables par l'application
 
--Un fichier database.py relatif à la base de données.
+-Des fichier database.py et user.db relatif à la base de données
 
