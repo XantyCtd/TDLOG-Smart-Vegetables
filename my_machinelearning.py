@@ -6,10 +6,12 @@ import tensorflow as tf
 
 import pathlib
 
-data_dir = pathlib.Path("C:/Users/alexa/Documents/TDLOG/VegetableImages/train")
+data_dir_train = pathlib.Path("data/0_raw/train")
+data_dir_valid = pathlib.Path("data/0_raw/validation")
 
-image_count = len(list(data_dir.glob("*/*.jpg")))
-print(image_count)
+image_count_train = len(list(data_dir_train.glob("*/*.jpg")))
+image_count_valid = len(list(data_dir_valid.glob("*/*.jpg")))
+print((image_count_train, image_count_valid))
 
 # Create a dataset
 
@@ -18,8 +20,8 @@ img_height = 180
 img_width = 180
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
-    data_dir,
-    validation_split=0.2,
+    data_dir_train,
+    validation_split=0.0001,
     subset="training",
     seed=123,
     image_size=(img_height, img_width),
@@ -27,8 +29,8 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 )
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
-    data_dir,
-    validation_split=0.2,
+    data_dir_valid,
+    validation_split=0.999,
     subset="validation",
     seed=123,
     image_size=(img_height, img_width),
@@ -115,6 +117,7 @@ model.summary()
 
 epochs = 15
 history = model.fit(train_ds, validation_data=val_ds, epochs=epochs)
+model.save("model.hdf5")
 
 # Visualize and training results
 
@@ -139,5 +142,3 @@ plt.plot(epochs_range, val_loss, label="Validation Loss")
 plt.legend(loc="upper right")
 plt.title("Training and Validation Loss")
 plt.show()
-
-model.save("model.hdf5")
